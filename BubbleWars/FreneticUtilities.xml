@@ -1,0 +1,754 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FreneticUtilities</name>
+    </assembly>
+    <members>
+        <member name="T:FreneticUtilities.FreneticDataSyntax.FDSData">
+            <summary>
+            Represents a piece of data within an FDS Section.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticDataSyntax.FDSData.PrecedingComments">
+            <summary>
+            The list of comments preceding this data piece.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticDataSyntax.FDSData.Internal">
+            <summary>
+            The internal represented data.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSData.Outputable">
+            <summary>
+            Returns the output-able string representation of this data.
+            </summary>
+            <returns>The resultant data.</returns>
+        </member>
+        <member name="T:FreneticUtilities.FreneticDataSyntax.FDSInputException">
+            <summary>
+            Represents an exception throw while inputting data to an FDS section.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSInputException.#ctor(System.String)">
+            <summary>
+            Construct the FDS exception.
+            </summary>
+            <param name="message">The message explaining the error.</param>
+        </member>
+        <member name="T:FreneticUtilities.FreneticDataSyntax.FDSParseException">
+            <summary>
+            Represents an exception throw while parsing FDS contents.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSParseException.#ctor(System.String)">
+            <summary>
+            Construct the FDS exception.
+            </summary>
+            <param name="message">The message explaining the error.</param>
+        </member>
+        <member name="T:FreneticUtilities.FreneticDataSyntax.FDSSection">
+            <summary>
+            Represents a FreneticDataSyntax section or file.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.#ctor(System.String)">
+            <summary>
+            Constructs the FDS Section from textual data.
+            </summary>
+            <param name="contents">The contents of the data file.</param>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.#ctor">
+            <summary>
+            Constructs the FDS section from no data, preparing it for usage as a new section.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticDataSyntax.FDSSection.StartingLine">
+            <summary>
+            The line number this section starts on.
+            Note that files start at 1.
+            Only accurate at file-load time.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticDataSyntax.FDSSection.Data">
+            <summary>
+            All data contained by this section.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticDataSyntax.FDSSection.DataLowered">
+            <summary>
+            Lowercase-stored data for this section.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticDataSyntax.FDSSection.SectionPathSplit">
+            <summary>
+            The section path splitter for this section.
+            Will initially hold a value obtained from <see cref="F:FreneticUtilities.FreneticDataSyntax.FDSUtility.DefaultSectionPathSplit"/> at instance construction time.
+            That field is initially a dot value. Altering that default or this value may cause issues (in particular with escaping) depending on the chosen value.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetRootKeys">
+            <summary>
+            Returns the set of all keys at the root of this section.
+            </summary>
+            <returns>All keys.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetStringList(System.String)">
+            <summary>
+            Gets a string from the section. Can stringify non-string values.
+            Returns null if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetDataList(System.String)">
+            <summary>
+            Gets a string from the section. Can stringify non-string values.
+            Returns null if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetBool(System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Gets a bool from the section.
+            Returns def if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <param name="def">The default object.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetString(System.String,System.String)">
+            <summary>
+            Gets a string from the section. Can stringify non-string values.
+            Returns def if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <param name="def">The default object.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetFloat(System.String,System.Nullable{System.Single})">
+            <summary>
+            Gets an optional float from the section.
+            Returns def if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <param name="def">The default object.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetDouble(System.String,System.Nullable{System.Double})">
+            <summary>
+            Gets an optional double from the section.
+            Returns def if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <param name="def">The default object.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetInt(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Gets an optional int from the section.
+            Returns def if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <param name="def">The default object.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetLong(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Gets an optional long from the section.
+            Returns def if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <param name="def">The default object.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetUlong(System.String,System.Nullable{System.UInt64})">
+            <summary>
+            Gets an optional ulong from the section.
+            Returns def if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <param name="def">The default object.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetObject(System.String,System.Object)">
+            <summary>
+            Gets an object from the section.
+            Returns def if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <param name="def">The default object.</param>
+            <returns>The data found, or the default.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.Set(System.String,System.Object)">
+            <summary>
+            Sets data to the section.
+            May throw an FDSInputException if Set failed!
+            </summary>
+            <param name="key">The key to set data from.</param>
+            <param name="input">The key to set data to.</param>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.SetData(System.String,FreneticUtilities.FreneticDataSyntax.FDSData)">
+            <summary>
+            Sets data to the section.
+            May throw an FDSInputException if SetData failed!
+            </summary>
+            <param name="key">The key to set data from.</param>
+            <param name="data">The key to set data to.</param>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.Default(System.String,System.Object)">
+            <summary>
+            Defaults data to the section (IE, sets it if not present!)
+            </summary>
+            <param name="key">The key to set data from.</param>
+            <param name="input">The key to set data to.</param>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.DefaultData(System.String,FreneticUtilities.FreneticDataSyntax.FDSData)">
+            <summary>
+            Defaults data to the section (IE, sets it if not present!)
+            </summary>
+            <param name="key">The key to set data from.</param>
+            <param name="data">The key to set data to.</param>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.HasKey(System.String)">
+            <summary>
+            Checks if a key exists in the FDS section.
+            </summary>
+            <param name="key">The key to check for.</param>
+            <returns>Whether the key is present.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetData(System.String)">
+            <summary>
+            Gets data from the section.
+            Returns null if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <returns>The data found, or null.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetDataLowered(System.String)">
+            <summary>
+            Gets data from the section.
+            Returns null if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <returns>The data found, or null.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetSection(System.String)">
+            <summary>
+            Gets a sub-section of this FDS section.
+            Returns null if not found.
+            </summary>
+            <param name="key">The key of the section.</param>
+            <returns>The subsection.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetSectionLowered(System.String)">
+            <summary>
+            Gets a sub-section of this FDS section.
+            Returns null if not found.
+            </summary>
+            <param name="key">The key of the section.</param>
+            <returns>The subsection.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetSectionInternal(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Gets a sub-section of this FDS section.
+            </summary>
+            <param name="key">The key of the section.</param>
+            <param name="allowNull">Whether to allow null returns, otherwise enforce the section's existence. If true, can throw an FDSInputException!</param>
+            <param name="lowered">Whether to read lowercase section names. If set, expects lowercased input key!</param>
+            <returns>The subsection.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.SetRootData(System.String,FreneticUtilities.FreneticDataSyntax.FDSData)">
+            <summary>
+            Sets data direct on the root level.
+            </summary>
+            <param name="key">The key to set data to.</param>
+            <param name="data">The data to read.</param>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetRootData(System.String)">
+            <summary>
+            Gets data direct from the root level.
+            Returns null if not found.
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <returns>The data found, or null.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.GetRootDataLowered(System.String)">
+            <summary>
+            Gets data direct from the root level.
+            Returns null if not found.
+            Assumes input is already lowercase!
+            </summary>
+            <param name="key">The key to get data from.</param>
+            <returns>The data found, or null.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSSection.SaveToString(System.Int32,System.String)">
+            <summary>
+            Converts this FDSSection to a textual representation of itself.
+            </summary>
+            <param name="tabulation">How many tabs to start with. Generally do not set this.</param>
+            <param name="newline">What string to use as a new line. Generally do not set this.</param>
+            <returns>The string.</returns>
+        </member>
+        <member name="T:FreneticUtilities.FreneticDataSyntax.FDSUtility">
+            <summary>
+            Utilities for the FreneticDataSyntax engine.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticDataSyntax.FDSUtility.DEFAULT_SECTION_PATH_SPLIT">
+            <summary>
+            The default splitter character for section paths.
+            To change to or a custom default, use <see cref="F:FreneticUtilities.FreneticDataSyntax.FDSUtility.DefaultSectionPathSplit"/>.
+            To change for a specific section, use <see cref="F:FreneticUtilities.FreneticDataSyntax.FDSSection.SectionPathSplit"/>.
+            This is a dot value.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticDataSyntax.FDSUtility.DefaultSectionPathSplit">
+            <summary>
+            The default splitter character for section paths.
+            For the internal unmodified default, use <see cref="F:FreneticUtilities.FreneticDataSyntax.FDSUtility.DEFAULT_SECTION_PATH_SPLIT"/>.
+            To change for a specific section, use <see cref="F:FreneticUtilities.FreneticDataSyntax.FDSSection.SectionPathSplit"/>.
+            This is initially a dot value. Altering this may cause issues (in particular with escaping) depending on the chosen value.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.ReadFile(System.String)">
+            <summary>
+            Reads a file into an <see cref="T:FreneticUtilities.FreneticDataSyntax.FDSSection"/>. Throws normal exceptions on any issue.
+            NOTE: May be removed or switched for journalling logic in the future.
+            </summary>
+            <param name="fname">The name of the file to read.</param>
+            <returns>An <see cref="T:FreneticUtilities.FreneticDataSyntax.FDSSection"/> containing the same data as the file (if successfully read).</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.SaveToFile(FreneticUtilities.FreneticDataSyntax.FDSSection,System.String)">
+            <summary>
+            Saves an <see cref="T:FreneticUtilities.FreneticDataSyntax.FDSSection"/> into a file. Throws normal exceptions on any issue.
+            NOTE: May be removed or switched for journalling logic in the future.
+            </summary>
+            <param name="section">The data to save.</param>
+            <param name="fname">The name of the file to read.</param>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.CleanFileData(System.String)">
+            <summary>
+            Cleans file line endings, tabs, and any other data that may cause issues.
+            </summary>
+            <param name="contents">The original file data.</param>
+            <returns>The cleaned file data.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.Escape(System.String)">
+            <summary>
+            Escapes a string for output.
+            <para>Only good for values. For keys, use <see cref="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.EscapeKey(System.String)"/>.</para>
+            </summary>
+            <param name="str">The string to escape.</param>
+            <returns>The escaped string.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.EscapeKey(System.String)">
+            <summary>
+            Escapes a string for usage as a section key.
+            </summary>
+            <param name="str">The string to escape.</param>
+            <returns>The escaped string.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.UnEscape(System.String)">
+            <summary>
+            UnEscapes a string for output.
+            <para>Only good for values. For keys, use <see cref="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.UnEscapeKey(System.String)"/>.</para>
+            </summary>
+            <param name="str">The string to unescape.</param>
+            <returns>The unescaped string.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.UnEscapeKey(System.String)">
+            <summary>
+            UnEscapes a string for usage as a section key.
+            </summary>
+            <param name="str">The string to unescape.</param>
+            <returns>The unescaped string.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticDataSyntax.FDSUtility.InterpretType(System.String)">
+            <summary>
+            Interprets the type of the input text.
+            </summary>
+            <param name="input">The input text.</param>
+            <returns>The correctly typed result.</returns>
+        </member>
+        <member name="T:FreneticUtilities.FreneticExtensions.EnumerableExtensions">
+            <summary>
+            Helper extensions for <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.IList`1"/>, and related types.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumerableExtensions.ToDictionaryWithNoDup``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``1})">
+            <summary>
+            Creates a dictionary mapping the keys array to the values array, such that keys[i] maps to values[i], for all integer "i" in range.
+            <para>This will throw an <see cref="T:System.ArgumentException"/> if there are duplicate keys, or the two lists do not have the same size.</para>
+            </summary>
+            <typeparam name="TKey">Key type.</typeparam>
+            <typeparam name="TValue">Value type.</typeparam>
+            <param name="keys">Key list.</param>
+            <param name="values">Value list.</param>
+            <returns>Dictionary.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumerableExtensions.ToDictionaryWith``2(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``1})">
+            <summary>
+            Creates a dictionary mapping the keys array to the values array, such that keys[i] maps to values[i], for all integer "i" in range.
+            <para>This will throw an <see cref="T:System.ArgumentException"/> if the two lists do not have the same size.</para>
+            </summary>
+            <typeparam name="TKey">Key type.</typeparam>
+            <typeparam name="TValue">Value type.</typeparam>
+            <param name="keys">Key list.</param>
+            <param name="values">Value list.</param>
+            <returns>Dictionary.</returns>
+        </member>
+        <member name="T:FreneticUtilities.FreneticExtensions.EnumHelper`1">
+            <summary>
+            Helper for <see cref="T:System.Enum"/> types.
+            </summary>
+            <typeparam name="T">The enum type.</typeparam>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.NameValueMap">
+            <summary>
+            A map of names to values for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.LoweredNameValueMap">
+            <summary>
+            A map of lowercased names to values for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.ValueNameMap">
+            <summary>
+            A map of values to names for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.Names">
+            <summary>
+            An array of all names for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.NameSet">
+            <summary>
+            A set of all names for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.LoweredNames">
+            <summary>
+            An array of all lowercased names for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.LoweredNameSet">
+            <summary>
+            A set of all lowercased names for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.Values">
+            <summary>
+            An array of all values for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.ValueSet">
+            <summary>
+            A set of all values for this enum.
+            Do not set to this instance, it will construct and fill itself.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.UnderlyingType">
+            <summary>
+            Gets the underlying type for the enum type.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.IsFlags">
+            <summary>
+            Whether this is a flags enum.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.LongConverter">
+            <summary>
+            A long converter function. Should only be used for very special case situations - usually, a normal cast works fine.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.EnumHelper`1.FlagTester">
+            <summary>
+            A flag tester function. Ideally there will be a way to do this cleanly without dynamic code gen some day...
+            (Other than just implementing the mathematical comparison inline).
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.CreateLongConverter">
+            <summary>
+            This is a gross hack used since C# handles enum types poorly. This should be destroyed and replaced as soon as C# does it better. (Or perhaps a T4 generator should be used?)
+            </summary>
+            <returns>A long converter function.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.CreateFlagTester">
+            <summary>
+            This is a gross hack used since C# handles enum types poorly. This should be destroyed and replaced as soon as C# does it better. (Or perhaps a T4 generator should be used?)
+            </summary>
+            <returns>A flag tester function.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.TryParseIgnoreCase(System.String,`0@)">
+            <summary>
+            Gets the value for the name, ignoring case.
+            Returns whether the name was found.
+            </summary>
+            <param name="name">The name input.</param>
+            <param name="val">The value output (when returning true).</param>
+            <returns>Success state.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.TryParse(System.String,`0@)">
+            <summary>
+            Gets the value for the name.
+            Returns whether the name was found.
+            </summary>
+            <param name="name">The name input.</param>
+            <param name="val">The value output (when returning true).</param>
+            <returns>Success state.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.ParseIgnoreCase(System.String)">
+            <summary>
+            Gets the value for the name, ignoring case.
+            Throws an exception if name is invalid.
+            </summary>
+            <param name="name">The name to look up.</param>
+            <returns>The enum value.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.Parse(System.String)">
+            <summary>
+            Gets the value for the name.
+            Throws an exception if name is invalid.
+            </summary>
+            <param name="name">The name to look up.</param>
+            <returns>The enum value.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.IsNameDefinedIgnoreCase(System.String)">
+            <summary>
+            Returns whether the name is defined in the enumeration, ignoring case.
+            </summary>
+            <param name="name">The name to test.</param>
+            <returns>Whether it's defined.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.IsNameDefined(System.String)">
+            <summary>
+            Returns whether the name is defined in the enumeration.
+            </summary>
+            <param name="name">The name to test.</param>
+            <returns>Whether it's defined.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.IsDefined(`0)">
+            <summary>
+            Returns whether the value is defined in the enumeration.
+            </summary>
+            <param name="val">The value to test.</param>
+            <returns>Whether it's defined.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.HasFlag(`0,`0)">
+            <summary>
+            Returns whether the mainVal (as a bitflag set) has the required testVal (as a bitflag set).
+            </summary>
+            <param name="mainVal">The set of flags present.</param>
+            <param name="testVal">The set of flags required.</param>
+            <returns>Whether the flags are present as required.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.TryGetName(`0,System.String@)">
+            <summary>
+            Gets the name for a value (if it is defined).
+            Returns success state.
+            </summary>
+            <param name="val">The value.</param>
+            <param name="name">The name output (when returning true).</param>
+            <returns>Success state.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.EnumHelper`1.GetName(`0)">
+            <summary>
+            Gets the name for a value (if it is defined).
+            </summary>
+            <param name="val">The value.</param>
+            <returns>The name.</returns>
+        </member>
+        <member name="T:FreneticUtilities.FreneticExtensions.StringConversionHelper">
+            <summary>
+            A special helper for converting <see cref="T:System.String"/> input to and from various types.
+            </summary>
+        </member>
+        <member name="F:FreneticUtilities.FreneticExtensions.StringConversionHelper.UTF8Encoding">
+            <summary>
+            A standard UTF-8 encoding helper object instance.
+            <para>This is not equialent to <see cref="P:System.Text.Encoding.UTF8"/> as that will output BOM when converting a <see cref="T:System.String"/> to binary data (which is usually bad).</para>
+            <para>This instance, by contrast, is guaranteed to not do that.</para>
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.StringToLong(System.String,System.Int64)">
+            <summary>
+            Converts a string value to the long-integer value it represents.
+            Returns the specified default value (or zero if unset) if the string does not represent a long-integer.
+            </summary>
+            <param name="input">The string to get the value from.</param>
+            <param name="defaultValue">The default value to use.</param>
+            <returns>a long-integer value.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.StringToInt(System.String,System.Int32)">
+            <summary>
+            Converts a string value to the integer value it represents.
+            Returns the specified default value (or zero if unset) if the string does not represent an integer.
+            </summary>
+            <param name="input">The string to get the value from.</param>
+            <param name="defaultValue">The default value to use.</param>
+            <returns>an integer value.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.StringToDouble(System.String,System.Double)">
+            <summary>
+            Converts a string value to the double value it represents.
+            Returns the specified default value (or zero if unset) if the string does not represent a double.
+            </summary>
+            <param name="input">The string to get the value from.</param>
+            <param name="defaultValue">The default value to use.</param>
+            <returns>a double value.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.StringToFloat(System.String,System.Single)">
+            <summary>
+            Converts a string value to the float value it represents.
+            Returns the specified default value (or zero if unset) if the string does not represent a float.
+            </summary>
+            <param name="input">The string to get the value from.</param>
+            <param name="defaultValue">The default value to use.</param>
+            <returns>a float value.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.StringToDateTime(System.String)">
+            <summary>
+            Converts a string to a date-time.
+            <para>Parsing errors will give a null result.</para>
+            <para>Expected format is "YYYY/MM/DD hh:mm:ss UTC+OO:oo".</para>
+            <para>YYYY = 4 digit year, MM = 2 digit month, DD = 2 digit day.</para>
+            <para>hh = 2 digit hour, mm = 2 digit minute, ss = 2 digit second.</para>
+            <para>OO = 2 digit offset hours, oo = 2 digit offset minutes. Can be prefixed with a '+' or '-'.</para>
+            <para>Optionally add 4-digit millisecond, like "YYYY/MM/DD hh:mm:ss:tttt UTC+OO:oo".</para>
+            <para>Inverted by <see cref="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.DateTimeToString(System.DateTimeOffset,System.Boolean)"/>.</para>
+            </summary>
+            <param name="input">The input string.</param>
+            <returns>The date-time.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.QPad(System.String,System.Int32)">
+            <summary>
+            Local utility used for <see cref="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.DateTimeToString(System.DateTimeOffset,System.Boolean)"/>.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.DateTimeToString(System.DateTimeOffset,System.Boolean)">
+            <summary>
+            Returns a string representation of the specified time.
+            <para>Format is "YYYY/MM/DD hh:mm:ss UTC+OO:oo".</para>
+            <para>YYYY = 4 digit year, MM = 2 digit month, DD = 2 digit day.</para>
+            <para>hh = 2 digit hour, mm = 2 digit minute, ss = 2 digit second.</para>
+            <para>OO = 2 digit offset hours, oo = 2 digit offset minutes. Can be prefixed with a '+' or '-'.</para>
+            <para>if 'showMilliseconds' is true, will add 4-digit millisecond, like "YYYY/MM/DD hh:mm:ss:tttt UTC+OO:oo".</para>
+            <para>Inverted by <see cref="M:FreneticUtilities.FreneticExtensions.StringConversionHelper.StringToDateTime(System.String)"/>.</para>
+            </summary>
+            <param name="input">The datetime object.</param>
+            <param name="showMilliseconds">Whether to include milliseconds.</param>
+            <returns>The time as a string.</returns>
+        </member>
+        <member name="T:FreneticUtilities.FreneticExtensions.StringExtensions">
+            <summary>
+            Helper extensions for <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.ToLowerFast(System.String)">
+            <summary>
+            Rapidly converts an ASCII string to a lowercase representation.
+            <para>Does not work with non-ASCII text (no support for unicode/multi-language/etc).</para>
+            <para>Operates explicitly on the ASCII 'a-z' and 'A-Z' range.</para>
+            <para>Can be slow if the string is already lowercase (Consider using <see cref="M:FreneticUtilities.FreneticExtensions.StringExtensions.IsAllLowerFast(System.String)"/> if that is likely).</para>
+            </summary>
+            <param name="input">The original string.</param>
+            <returns>A lowercase version.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.StartsWithNull(System.String)">
+            <summary>
+            Returns whether the string starts with a null character.
+            </summary>
+            <param name="input">The input string.</param>
+            <returns>True if the first character of the string is a null, otherwise false.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.StartsWithFast(System.String,System.Char)">
+            <summary>
+            Returns whether the string starts with the specified character.
+            </summary>
+            <param name="input">The input string.</param>
+            <param name="firstChar">The character being checked.</param>
+            <returns>True if the first character of the string is equal to the specified character, otherwise false.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.EndWithNull(System.String)">
+            <summary>
+            Returns whether the string ends with a null character.
+            </summary>
+            <param name="input">The input string.</param>
+            <returns>True if the last character of the string is a null, otherwise false.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.EndWithFast(System.String,System.Char)">
+            <summary>
+            Returns whether the string ends with the specified character.
+            </summary>
+            <param name="input">The input string.</param>
+            <param name="firstChar">The character being checked for.</param>
+            <returns>True if the last character of the string is equal to the specified character, otherwise false.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.IsAllLowerFast(System.String)">
+            <summary>
+            Returns whether the string contains only lowercase ASCII letters (or more specifically: that it does not contain uppercase ASCII letters).
+            <para>Does not work with non-ASCII text (no support for unicode/multi-language/etc).</para>
+            <para>Operates explicitly on the ASCII 'a-z' and 'A-Z' range.</para>
+            </summary>
+            <param name="input">The original string.</param>
+            <returns>True if there are no uppercase letters, false if there are uppercase letters found.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.ToUpperFast(System.String)">
+            <summary>
+            Rapidly converts an ASCII string to a uppercase representation.
+            <para>Does not work with non-ASCII text (no support for unicode/multi-language/etc).</para>
+            <para>Operates explicitly on the ASCII 'a-z' and 'A-Z' range.</para>
+            <para>Can be slow if the string is already uppercase (Consider using <see cref="M:FreneticUtilities.FreneticExtensions.StringExtensions.IsAllUpperFast(System.String)"/> if that is likely).</para>
+            </summary>
+            <param name="input">The original string.</param>
+            <returns>An uppercase version.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.IsAllUpperFast(System.String)">
+            <summary>
+            Returns whether the string contains only uppercase ASCII letters (or more specifically: that it does not contain uppercase ASCII letters).
+            <para>Does not work with non-ASCII text (no support for unicode/multi-language/etc).</para>
+            <para>Operates explicitly on the ASCII 'a-z' and 'A-Z' range.</para>
+            </summary>
+            <param name="input">The original string.</param>
+            <returns>True if there are no lowercase letters, false if there are lowercase letters found.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.CountCharacter(System.String,System.Char)">
+            <summary>
+            Counts instances of a character in a string.
+            </summary>
+            <param name="input">The input string.</param>
+            <param name="charToCount">The character to count.</param>
+            <returns>The number of times the character is in the string (0 if none).</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.SplitFast(System.String,System.Char)">
+            <summary>
+            Quickly split a string around a splitter character, with an optional max split count.
+            </summary>
+            <param name="input">The original string.</param>
+            <param name="splitChar">What to split it by.</param>
+            <returns>The split string pieces.</returns>
+        </member>
+        <member name="M:FreneticUtilities.FreneticExtensions.StringExtensions.SplitFast(System.String,System.Char,System.Int32)">
+            <summary>
+            Quickly split a string around a splitter character, with a max split count.
+            </summary>
+            <param name="input">The original string.</param>
+            <param name="splitChar">What to split it by.</param>
+            <param name="maxCount">The maximum number of times to split it.</param>
+            <returns>The split string pieces.</returns>
+        </member>
+    </members>
+</doc>
